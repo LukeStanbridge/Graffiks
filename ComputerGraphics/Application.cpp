@@ -33,12 +33,51 @@ bool Application::startup()
     m_planet2 = mat4(1);
     m_planet3 = mat4(1);
 
-    // load vertex shader from file
     m_shader.loadShader(aie::eShaderStage::VERTEX, "./shaders/simple.vert");
-    // load fragment shader from file 
     m_shader.loadShader(aie::eShaderStage::FRAGMENT, "./shaders/simple.frag");
+    if (m_shader.link() == false)
+    {
+        printf("Shader Error: %s\n", m_shader.getLastError());
+        return false;
+    }
 
-    if (m_shader.link() == false) printf("Shader Error: %s\n", m_shader.getLastError());
+    //m_quadMesh.initialiseQuad();
+
+    // make the quad 10 units wide 
+    m_quadTransform = {
+     10,0,0,0,
+     0,10,0,0,
+     0,0,10,0,
+     0,0,0,1 }; 
+
+    //// define 6 vertices for 2 triangles 
+    //Mesh::Vertex vertices[6];
+    //vertices[0].position = { -0.5f, 0, 0.5f, 1 };
+    //vertices[1].position = { 0.5f, 0, 0.5f, 1 };
+    //vertices[2].position = { -0.5f, 0, -0.5f, 1 };
+
+    //vertices[3].position = { -0.5f, 0, -0.5f, 1 };
+    //vertices[4].position = { 0.5f, 0, 0.5f, 1 };
+    //vertices[5].position = { 0.5f, 0, -0.5f, 1 };
+
+    //m_quadMesh.initialise(6, vertices);
+
+   /* m_quadTransform = {
+     10,0,0,0,
+     0,10,0,0,
+     0,0,10,0,
+     0,0,0,1 }; */
+
+    // define 4 vertices for 2 triangles 
+    Mesh::Vertex vertices[4];
+    vertices[0].position = { -0.5f, 0, 0.5f, 1 };
+    vertices[1].position = { 0.5f, 0, 0.5f, 1 };
+    vertices[2].position = { -0.5f, 0, -0.5f, 1 };
+    vertices[3].position = { 0.5f, 0, -0.5f, 1 };
+
+    unsigned int indices[6] = { 0, 1, 2, 2, 1, 3 };
+
+    m_quadMesh.initialise(4, vertices, 6, indices);
 
     glClearColor(0.25f, 0.25f, 0.25f, 1);
     glEnable(GL_DEPTH_TEST); // enables the depth buffer 
@@ -75,6 +114,16 @@ void Application::draw()
     vec4 yellow(1, 1, 0, 1);
     vec4 magenta(1, 0, 1, 1);
     vec4 cyan(0, 1, 1, 1);
+
+    // bind shader 
+    m_shader.bind();
+
+    // bind transform 
+    auto pvm = m_projection * m_view * m_quadTransform;
+    m_shader.bindUniform("ProjectionViewModel", pvm);
+
+    // draw quad 
+    m_quadMesh.draw();
 
     //create backgorund griddy
     for (int i = 0; i < 21; ++i)

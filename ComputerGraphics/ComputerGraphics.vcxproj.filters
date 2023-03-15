@@ -36,8 +36,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="bin\Shaders\simple.vert" />
-    <None Include="bin\Shaders\simple.frag" />
+    <None Include="bin\Shaders\simple.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="bin\Shaders\simple.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gizmos.h">

@@ -7,6 +7,50 @@ Mesh::~Mesh()
 	glDeleteBuffers(1, &ibo);
 }
 
+void Mesh::initialise(unsigned int vertexCount, const Vertex* vertices, unsigned int indexCount, unsigned int* indices)
+{
+	assert(vao == 0);
+
+	// generate buffers 
+	glGenBuffers(1, &vbo);
+	glGenVertexArrays(1, &vao);
+
+	// bind vertex array aka a mesh wrapper 
+	glBindVertexArray(vao);
+
+	// bind vertex buffer 
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+	// fill vertex buffer 
+	glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(Vertex), vertices, GL_STATIC_DRAW);
+
+	// enable first element as position 
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+
+	// bind indices if there are any 
+	if (indexCount != 0) {
+		glGenBuffers(1, &ibo);
+
+		// bind vertex buffer 
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+
+		// fill vertex buffer 
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+
+		triCount = indexCount / 3;
+	}
+	else 
+	{
+		triCount = vertexCount / 3;
+	}
+
+	// unbind buffers 
+	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 void Mesh::initialiseQuad()
 {
 	// check that the mesh is not initialized already 
@@ -45,8 +89,6 @@ void Mesh::initialiseQuad()
 
 	// quad has 2 triangles 
 	triCount = 2;
-
-	// MORE TO GO HERE 
 }
 
 void Mesh::draw()
