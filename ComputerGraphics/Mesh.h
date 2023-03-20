@@ -26,6 +26,8 @@ public:
 
 	void initialiseQuad();
 
+	void initialiseFromFile(const char* filename);
+
 	virtual void draw();
 
 protected:

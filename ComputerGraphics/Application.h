@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "glad.h"
 #include "Gizmos.h"
+#include "Camera.h"
 #include <glm/fwd.hpp>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp> 
@@ -21,7 +22,17 @@ public:
 	void draw();
 	void shutdown();
 
+	// singleton pattern
+	static Application* get() { return s_instance; }
+	glm::vec2 getMousePosition() { return m_mousePosition; }
+	glm::vec2 getMouseDelta() { return m_mousePosition - m_lastMousePosition; }
+
+	// set up mouse input
+	static void SetMousePosition(GLFWwindow* window, double x, double y);
+
+
 protected:
+	static Application* s_instance;
 	glm::mat4 m_view;
 	glm::mat4 m_projection;
 
@@ -30,6 +41,7 @@ protected:
 	glm::mat4 m_projectionMatrix;
 
 	aie::ShaderProgram m_shader;
+	aie::ShaderProgram m_phongShader;
 	Mesh m_quadMesh;
 	glm::mat4 m_quadTransform;
 	
@@ -37,5 +49,9 @@ protected:
 	glm::mat4 m_planet1;
 	glm::mat4 m_planet2;
 	glm::mat4 m_planet3;
+
+	glm::vec2 m_mousePosition;
+	glm::vec2 m_lastMousePosition;
+	Camera m_camera;
 };
 
