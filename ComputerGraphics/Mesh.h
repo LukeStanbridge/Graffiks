@@ -1,10 +1,14 @@
 #pragma once
 #include "glad.h"
 #include "Gizmos.h"
+#include "Texture.h"
 #include <glm/fwd.hpp>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp> 
 #include <glm/ext.hpp>
+
+namespace aie { class ShaderProgram; }
+using aie::Gizmos;
 
 class Mesh
 {
@@ -28,12 +32,22 @@ public:
 
 	void initialiseFromFile(const char* filename);
 
+	void applyMaterial(aie::ShaderProgram* shader);
+
+	void loadMaterial(const char* fileName);
+
 	virtual void draw();
+
+	glm::vec3 Ka; // ambient colour of the surface
+	glm::vec3 Kd; // diffuse colour of the surface
+	glm::vec3 Ks; // specular colour of the surface
+	float specularPower; // tightness of specular highlights
+
+	aie::Texture mapKd; // diffuse texture map
 
 protected:
 
 	unsigned int triCount;
 	unsigned int vao, vbo, ibo;
-	
 };
 

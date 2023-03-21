@@ -4,6 +4,7 @@
 #include "glad.h"
 #include "Gizmos.h"
 #include "Camera.h"
+#include "Texture.h"
 #include <glm/fwd.hpp>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp> 
@@ -30,6 +31,8 @@ public:
 	// set up mouse input
 	static void SetMousePosition(GLFWwindow* window, double x, double y);
 
+	void bindTransform(glm::mat4, aie::ShaderProgram&, glm::mat4);
+
 
 protected:
 	static Application* s_instance;
@@ -42,8 +45,12 @@ protected:
 
 	aie::ShaderProgram m_shader;
 	aie::ShaderProgram m_phongShader;
+	aie::Texture m_gridTexture;
+
 	Mesh m_quadMesh;
 	glm::mat4 m_quadTransform;
+	Mesh m_bunnyMesh;
+	glm::mat4 m_bunnyTransform;
 	
 	glm::mat4 m_sun;
 	glm::mat4 m_planet1;
@@ -53,5 +60,14 @@ protected:
 	glm::vec2 m_mousePosition;
 	glm::vec2 m_lastMousePosition;
 	Camera m_camera;
+
+	struct Light 
+	{ 
+		glm::vec3 direction;
+		glm::vec3 colour;
+	};
+
+	Light m_light;
+	glm::vec3 m_ambientLight;
 };
 
