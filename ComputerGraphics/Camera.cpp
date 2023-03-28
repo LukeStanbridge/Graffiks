@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "Application.h"
+
 void Camera::update(float deltaTime, GLFWwindow* window)
 {
     float thetaR = glm::radians(m_theta);

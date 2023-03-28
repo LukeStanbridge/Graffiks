@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp> 
 #include <glm/ext.hpp>
+#include <vector>
 
 namespace aie { class ShaderProgram; }
 using aie::Gizmos;
@@ -22,11 +23,10 @@ public:
 		glm::vec4 position;
 		glm::vec4 normal;
 		glm::vec2 texCoord;
+		glm::vec4 tangent;
 	};
 
-	void initialise(unsigned int vertexCount, const Vertex* vertices,
-		unsigned int indexCount = 0,
-		unsigned int* indices = nullptr);
+	void initialise(unsigned int vertexCount, const Vertex* vertices, unsigned int indexCount = 0, unsigned int* indices = nullptr);
 
 	void initialiseQuad();
 
@@ -36,6 +36,8 @@ public:
 
 	void loadMaterial(const char* fileName);
 
+	void calculateTangents(Vertex* vertices, unsigned int vertexCount, const std::vector<unsigned int>& indices);
+
 	virtual void draw();
 
 	glm::vec3 Ka; // ambient colour of the surface
@@ -44,6 +46,8 @@ public:
 	float specularPower; // tightness of specular highlights
 
 	aie::Texture mapKd; // diffuse texture map
+	aie::Texture mapKs; // specular texture map
+	aie::Texture mapBump; // normal map
 
 protected:
 

@@ -9,11 +9,20 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp> 
 #include <glm/ext.hpp>
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 using glm::vec3;
 using glm::vec4;
 using glm::mat4;
 using aie::Gizmos;
+
+struct Light
+{
+	glm::vec3 direction;
+	glm::vec3 colour;
+};
 
 class Application
 {
@@ -31,43 +40,25 @@ public:
 	// set up mouse input
 	static void SetMousePosition(GLFWwindow* window, double x, double y);
 
-	void bindTransform(glm::mat4, aie::ShaderProgram&, glm::mat4);
-
-
 protected:
 	static Application* s_instance;
 	glm::mat4 m_view;
 	glm::mat4 m_projection;
 
 	GLFWwindow* m_window;
-	glm::mat4 m_viewMatrix;
-	glm::mat4 m_projectionMatrix;
 
-	aie::ShaderProgram m_shader;
-	aie::ShaderProgram m_phongShader;
-	aie::Texture m_gridTexture;
+	aie::ShaderProgram m_normalMapShader;
 
-	Mesh m_quadMesh;
-	glm::mat4 m_quadTransform;
-	Mesh m_bunnyMesh;
-	glm::mat4 m_bunnyTransform;
-	
-	glm::mat4 m_sun;
-	glm::mat4 m_planet1;
-	glm::mat4 m_planet2;
-	glm::mat4 m_planet3;
+	Mesh m_spearMesh;
+	class Instance* m_spearInstance;
 
 	glm::vec2 m_mousePosition;
 	glm::vec2 m_lastMousePosition;
 	Camera m_camera;
 
-	struct Light 
-	{ 
-		glm::vec3 direction;
-		glm::vec3 colour;
-	};
-
 	Light m_light;
 	glm::vec3 m_ambientLight;
+
+	class Scene* m_scene;
 };
 

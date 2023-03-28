@@ -71,19 +71,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)dep\assimp\include;$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\include;$(IncludePath);$(SolutionDir)dep\assimp\include;$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\include;$(SolutionDir)dep\stb</IncludePath>
+    <IncludePath>$(SolutionDir)dep\assimp\include;$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\include;$(IncludePath);$(SolutionDir)dep\assimp\include;$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\include;$(SolutionDir)dep\stb;$(ProjectDir)dep\imgui;$(ProjectDir)dep\imgui\backends</IncludePath>
     <LibraryPath>$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\lib;$(LibraryPath);$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;$(SolutionDir)dep\assimp\include;$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\include;$(SolutionDir)dep\stb</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;$(SolutionDir)dep\assimp\include;$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\include;$(SolutionDir)dep\stb;$(ProjectDir)dep\imgui;$(ProjectDir)dep\imgui\backends</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;$(SolutionDir)dep\assimp\include;$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\include;$(SolutionDir)dep\stb</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;$(SolutionDir)dep\assimp\include;$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\include;$(SolutionDir)dep\stb;$(ProjectDir)dep\imgui;$(ProjectDir)dep\imgui\backends</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;$(SolutionDir)dep\assimp\include;$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\include;$(SolutionDir)dep\stb</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;$(SolutionDir)dep\assimp\include;$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\include;$(SolutionDir)dep\stb;$(ProjectDir)dep\imgui;$(ProjectDir)dep\imgui\backends</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)dep\assimp\out\build\x64-$(Configuration)\lib</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -150,9 +150,17 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ComputerGraphics.cpp" />
+    <ClCompile Include="dep\imgui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="dep\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="dep\imgui\imgui.cpp" />
+    <ClCompile Include="dep\imgui\imgui_draw.cpp" />
+    <ClCompile Include="dep\imgui\imgui_tables.cpp" />
+    <ClCompile Include="dep\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Gizmos.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="Instance.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
@@ -166,8 +174,10 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Gizmos.h" />
     <ClInclude Include="glad.h" />
+    <ClInclude Include="Instance.h" />
     <ClInclude Include="khrplatform.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
